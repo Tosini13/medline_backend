@@ -26,7 +26,7 @@ export type TLine = {
   title: string;
   description?: string;
   value: LINE_VALUE;
-  events?: Id[];
+  events: Id[];
 };
 
 export type TLineRes = TLine & {
@@ -37,9 +37,9 @@ export interface ILine extends Document {
   title: string;
   description?: string;
   value: LINE_VALUE;
-  events?: Id[];
+  events: Id[];
 }
 
-const Line = mongoose.model<ILine>("Lines", SLine);
+const Line = mongoose.model<ILine>("lines", SLine);
 
 export default Line;

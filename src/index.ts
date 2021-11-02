@@ -1,21 +1,21 @@
 import express from "express";
-import mongoose from "mongoose";
-// import { connectMongoose } from "./mongo/config";
+import AWS from "aws-sdk";
+import { connectMongoose } from "./mongo/config";
 import router from "./routes";
 
 require("dotenv").config();
 const app = express();
 
-// connectMongoose();
-console.log(
-  `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@medline.arwq9.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`
-);
+connectMongoose();
 
-mongoose.connect(
-  `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@medline.arwq9.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`
-);
-mongoose.Promise = global.Promise;
+// -------- AWS -------
 
+const AWS_CREDENTIALS = {
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SERCRET_ACCESS_KEY,
+};
+
+export const s3 = new AWS.S3(AWS_CREDENTIALS);
 // MIDDLEWARE
 
 app.use((req, res, next) => {
